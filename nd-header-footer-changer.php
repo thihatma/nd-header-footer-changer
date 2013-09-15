@@ -43,7 +43,10 @@ class TH_Options{
 		register_setting('th_plugin_options','th_plugin_options', array($this, 'th_validate_settings')); //3rd pram = optional callback
 		add_settings_section('th_main_section','Banner Setting', array($this,'th_main_section_cb'), __FILE__);
 		add_settings_field('th_banner_header','Hader Banner', array($this,'th_banner_header_setting'), __FILE__,'th_main_section');
-		//add_settings_field('th_banner_footer','Footer Banner', array($this,'th_banner_footer_setting'), __FILE__,'th_main_section');
+		add_settings_field('th_banner_headercheck','Enable Hader Banner', array($this,'th_banner_headercheck_setting'), __FILE__,'th_main_section');
+		add_settings_field('th_banner_footer','Footer Banner', array($this,'th_banner_footer_setting'), __FILE__,'th_main_section');
+		add_settings_field('th_banner_fooercheck','Enable Banner', array($this,'th_banner_footercheck_setting'), __FILE__,'th_main_section');
+		
 
 	}
 
@@ -54,15 +57,15 @@ class TH_Options{
 
 	public function th_validate_settings($plugin_options)
 	{
-		/*if (!empty($_FILES['th_banner_header_upload']['tmp_name'])){
+		if (!empty($_FILES['th_banner_header_upload']['tmp_name'])){
 			$override = array('test_form' => false);
 			$file=wp_handle_upload($_FILES['th_banner_header_upload'], $override);
-			print_r($_FILES);*/
+			print_r($_FILES);
 			print_r($plugin_options);
 		}
 	}
 
-	//Banner Heading
+	//Banner Heading & Footer & Chekbox in Admin
 	public function th_banner_header_setting()
 	{
 		echo '<input type="file" />';
@@ -70,6 +73,14 @@ class TH_Options{
 	public function th_banner_footer_setting()
 	{
 		echo '<input type="file" />';
+	}
+	public function th_banner_headercheck_setting()
+	{
+		echo '<input type="checkbox" />';
+	}
+	public function th_banner_footercheck_setting()
+	{
+		echo '<input type="checkbox" />';
 	}
 }
 add_action('admin_menu', function(){
